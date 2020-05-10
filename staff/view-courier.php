@@ -2,12 +2,14 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
+require_once('PHPMailer/PHPMailerAutoload.php');
+//include('includes/mailServer.php');
 if (strlen($_SESSION['cmssid']==0)) {
   header('location:logout.php');
-  } else{
 
-if(isset($_POST['submit']))
-  {
+} else{
+
+if(isset($_POST['submit'])){
     
     $cid=$_GET['editid'];
       $remark=$_POST['remark'];
@@ -19,6 +21,35 @@ if(isset($_POST['submit']))
    $query3=mysqli_query($con, "update  tblcourier set CourierDate='$date' where id='$cid'");
     if ($query && $query2 && $query3) {
     $msg="Remark and Status has been updated.";
+
+    /*$mailObj=new MailServer(); //Create mail server object
+    $sender='eversleyfrancis@gmail.com';
+    $receiver='everboy15@hotmail.com';
+    $mailObj->sendMail($sender,$receiver,$status,$remark); //Send email
+    */
+    
+    $sender='eversleyfrancis@gmail.com';
+    $receiver='everboy15@hotmail.com';
+
+    $mail= new PHPMailer();
+    $mail->isSMTP();
+    $mail->SMTPAuth=true;
+    $mail->SMTPSecure= 'ssl';
+    $mail->Host='smtp.gmail.com';
+    $mail->Port='465';
+    $mail->isHTML();
+    $mail->Username = 'bdzshippingja@gmail.com';
+    $mail->Password = 'comp2171';
+    $mail->SetFrom('no-reply@bdzshipping.com');
+    $mail->Subject ='Shipment Update';
+    $mail->Body = 'Your shipment is now '.$status.'. Remarks: '.$remark;
+    $mail->AddAddress($sender);
+    $mail->AddAddress($receiver);
+
+    $mail->Send();
+
+    $msg="E-mail Sent.";
+
   }
   else
     {
@@ -29,7 +60,7 @@ if(isset($_POST['submit']))
 }
   
 
-  ?>
+?>
 
 
 
