@@ -27,10 +27,10 @@ if(isset($_POST['submit'])){
     $receiver='everboy15@hotmail.com';
     $mailObj->sendMail($sender,$receiver,$status,$remark); //Send email
     */
-    
+    /*
     $sender='eversleyfrancis@gmail.com';
     $receiver='everboy15@hotmail.com';
-
+    
     $mail= new PHPMailer();
     $mail->isSMTP();
     $mail->SMTPAuth=true;
@@ -48,7 +48,7 @@ if(isset($_POST['submit'])){
 
     $mail->Send();
 
-    $msg="E-mail Sent.";
+    $msg="E-mail Sent."; */
 
   }
   else
