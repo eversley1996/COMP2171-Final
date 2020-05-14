@@ -19,7 +19,6 @@ if(isset($_POST['submit'])){
    $query=mysqli_query($con,"insert into tblcouriertracking (CourierId,remark,status,StatusDate) value('$cid',' $remark','$status','$date')");
    $query2=mysqli_query($con, "update  tblcourier set Status='$status' where id='$cid'");
    $query3=mysqli_query($con, "update  tblcourier set CourierDate='$date' where id='$cid'");
-<<<<<<< HEAD
    if ($query && $query2 && $query3) {
       
       $mailObj=new MailServer(); //Create mail server object
@@ -34,38 +33,6 @@ if(isset($_POST['submit'])){
       }
       
       $msg="E-mail Sent.";
-=======
-    if ($query && $query2 && $query3) {
-    $msg="Remark and Status has been updated.";
-
-    /*$mailObj=new MailServer(); //Create mail server object
-    $sender='eversleyfrancis@gmail.com';
-    $receiver='everboy15@hotmail.com';
-    $mailObj->sendMail($sender,$receiver,$status,$remark); //Send email
-    */
-    /*
-    $sender='eversleyfrancis@gmail.com';
-    $receiver='everboy15@hotmail.com';
-    
-    $mail= new PHPMailer();
-    $mail->isSMTP();
-    $mail->SMTPAuth=true;
-    $mail->SMTPSecure= 'ssl';
-    $mail->Host='smtp.gmail.com';
-    $mail->Port='465';
-    $mail->isHTML();
-    $mail->Username = 'bdzshippingja@gmail.com';
-    $mail->Password = 'comp2171';
-    $mail->SetFrom('no-reply@bdzshipping.com');
-    $mail->Subject ='Shipment Update';
-    $mail->Body = 'Your shipment is now '.$status.'. Remarks: '.$remark;
-    $mail->AddAddress($sender);
-    $mail->AddAddress($receiver);
-
-    $mail->Send();
-
-    $msg="E-mail Sent."; */
->>>>>>> 5adeae9ddd6baea1c90ed220563bc01661f5947c
 
   }
   else
