@@ -9,17 +9,17 @@ if(!empty($_POST["emailid"])) {
 	}
 	else {
 		$sql =mysqli_query($con,"SELECT StaffEmail FROM tblstaff WHERE StaffEmail='$email'");
-$num=mysqli_num_rows($sql);
-if($num > 0)
-{
-echo "<span style='color:red'> Email already associated with another account .</span>";
- echo "<script>$('#submit').prop('disabled',true);</script>";
-} else{
-	
-	echo "<span style='color:green'> Email available for registration .</span>";
- echo "<script>$('#submit').prop('disabled',false);</script>";
-}
-}
+		$num=mysqli_num_rows($sql);
+		if($num > 0)
+		{
+			echo "<span style='color:red'> Email already associated with another account .</span>";
+			echo "<script>$('#submit').prop('disabled',true);</script>";
+		} else{
+			
+			echo "<span style='color:green'> Email available for registration .</span>";
+			echo "<script>$('#submit').prop('disabled',false);</script>";
+		}
+	}
 }
 
 

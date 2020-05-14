@@ -15,14 +15,14 @@ $sendercontnum=$_POST['sendercontactnumber'];
 $senderadd=$_POST['senderaddress'];
 $sendercity=$_POST['sendercity'];
 $senderstate=$_POST['senderstate'];
-$senderpincode=$_POST['senderpincode'];
+$SenderEMail=$_POST['SenderEMail'];
 $sendercountry=$_POST['sendercountry'];
 $recname=$_POST['recipientname'];
 $reccontactnumber=$_POST['recipientcontactnumber'];
 $recadd=$_POST['recaddress'];
 $reccity=$_POST['recipientcity'];
 $recstate=$_POST['recipientstate'];
-$recpincode=$_POST['recipientpincode'];
+$recpEMail=$_POST['RecipientEMail'];
 $reccountry=$_POST['recipientcountry'];
 $shipvessel = $_POST['vessel'];
 $shipcontainer = $_POST['container'];
@@ -35,7 +35,8 @@ $parheight=$_POST['height'];
 $parprice=$_POST['parcelprice'];
 $refnumber=mt_rand(100000000, 999999999);
 $status='0';
- $query=mysqli_query($con,"insert into tblcourier(RefNumber,SenderBranch,SenderName,SenderContactnumber,SenderAddress,SenderCity,SenderState,SenderPincode,SenderCountry,RecipientName,RecipientContactnumber,RecipientAddress,RecipientCity,RecipientState,RecipientPincode,RecipientCountry,CourierDes, Vessel, Container, ManifestNumber, ParcelWeight,ParcelDimensionlen,ParcelDimensionwidth,ParcelDimensionheight,ParcelPrice,Status) value('$refnumber','$senbranchname','$sendername','$sendercontnum','$senderadd','$sendercity','$senderstate','$senderpincode','$sendercountry','$recname','$reccontactnumber','$recadd','$reccity','$recstate','$recpincode','$reccountry','$courierdes','$shipvessel','$shipcontainer','$shipmanifest','$courierwt','$parlength','$parwidth','$parheight','$parprice','$status')");
+ $query=mysqli_query($con,"insert into tblcourier(RefNumber,SenderBranch,SenderName,SenderContactnumber,SenderAddress,SenderCity,SenderState,SenderEMail,SenderCountry,RecipientName,RecipientContactnumber,RecipientAddress,RecipientCity,RecipientState,RecipientEMail
+,RecipientCountry,CourierDes, Vessel, Container, ManifestNumber, ParcelWeight,ParcelDimensionlen,ParcelDimensionwidth,ParcelDimensionheight,ParcelPrice,Status) value('$refnumber','$senbranchname','$sendername','$sendercontnum','$senderadd','$sendercity','$senderstate','$SenderEMail','$sendercountry','$recname','$reccontactnumber','$recadd','$reccity','$recstate','$recpEMail','$reccountry','$courierdes','$shipvessel','$shipcontainer','$shipmanifest','$courierwt','$parlength','$parwidth','$parheight','$parprice','$status')");
 
     if ($query) {
     $msg="Courier Detail has been added.";
@@ -158,8 +159,8 @@ $status='0';
                                                     <input class="form-control" type="text" name="senderstate" required="true">
                                                 </fieldset>
                                                 <fieldset class="form-group">
-                                                    <label >Sender Pincode</label>
-                                                    <input class="form-control" type="text" name="senderpincode" maxlength="6" required="true">
+                                                    <label >Sender E-Mail</label>
+                                                    <input class="form-control" type="email" name="SenderEMail" required="true">
                                                 </fieldset>
                                                  <fieldset class="form-group">
                                                     <label >Sender Country</label>
@@ -229,8 +230,8 @@ $status='0';
                                                     
                                                 </fieldset>
                                                 <fieldset>
-                                                    <label >Recipient Pincode</label>
-                                                    <input class="form-control m-b-20" type="text" name="recipientpincode" required="true" maxlength="6">
+                                                    <label >Recipient E-Mail</label>
+                                                    <input class="form-control m-b-20" type="email" name="RecipientEMail" required="true">
                                                     
                                                     
                                                 </fieldset>

@@ -81,7 +81,7 @@ include('admin/includes/dbconnection.php');
 <?php
 if(isset($_POST['search'])){
 $searchdata=$_POST['searchdata'];
-$ret=mysqli_query($con,"select tblcourier.id as cid, tblcourier.RefNumber,tblcourier.SenderName,tblcourier.SenderCity,tblcourier.SenderState,tblcourier.SenderPincode,tblcourier.SenderCountry,tblcourier.RecipientName,tblcourier.RecipientCity,tblcourier.RecipientState,tblcourier.RecipientPincode,tblcourier.RecipientCountry from  tblcourier where tblcourier.RefNumber='$searchdata'");
+$ret=mysqli_query($con,"select tblcourier.id as cid, tblcourier.RefNumber,tblcourier.SenderName,tblcourier.SenderCity,tblcourier.SenderState,tblcourier.SenderEMail,tblcourier.SenderCountry,tblcourier.RecipientName,tblcourier.RecipientCity,tblcourier.RecipientState,tblcourier.RecipientEMail,tblcourier.RecipientCountry from  tblcourier where tblcourier.RefNumber='$searchdata'");
 $num=mysqli_num_rows($ret);
 if($num >0){
 while ($row=mysqli_fetch_array($ret)) {
@@ -110,8 +110,8 @@ while ($row=mysqli_fetch_array($ret)) {
 <td><?php  echo $row['SenderState'];?></td>
 </tr> 
 <tr>
-<th>Pincode</th>
-<td><?php  echo $row['SenderPincode'];?></td>
+<th>E-mail</th>
+<td><?php  echo $row['SenderEMail'];?></td>
 </tr> 
 <tr>
 <th>Country</th>
@@ -142,8 +142,8 @@ while ($row=mysqli_fetch_array($ret)) {
 <td><?php  echo $row['RecipientState'];?></td>
 </tr> 
 <tr>
-<th>Pincode</th>
-<td><?php  echo $row['RecipientPincode'];?></td>
+<th>E-Mail</th>
+<td><?php  echo $row['RecipientEMail'];?></td>
 </tr> 
 <tr>
 <th>Country</th>

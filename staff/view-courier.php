@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
 require_once('PHPMailer/PHPMailerAutoload.php');
-//include('includes/mailServer.php');
+include('includes/mailServer.php');
 if (strlen($_SESSION['cmssid']==0)) {
   header('location:logout.php');
 
@@ -12,43 +12,27 @@ if (strlen($_SESSION['cmssid']==0)) {
 if(isset($_POST['submit'])){
     
     $cid=$_GET['editid'];
-      $remark=$_POST['remark'];
-      $status=$_POST['status'];
+    $remark=$_POST['remark'];
+    $status=$_POST['status'];
  
    $date=date("Y/m/d"); 
    $query=mysqli_query($con,"insert into tblcouriertracking (CourierId,remark,status,StatusDate) value('$cid',' $remark','$status','$date')");
    $query2=mysqli_query($con, "update  tblcourier set Status='$status' where id='$cid'");
    $query3=mysqli_query($con, "update  tblcourier set CourierDate='$date' where id='$cid'");
-    if ($query && $query2 && $query3) {
-    $msg="Remark and Status has been updated.";
-
-    /*$mailObj=new MailServer(); //Create mail server object
-    $sender='eversleyfrancis@gmail.com';
-    $receiver='everboy15@hotmail.com';
-    $mailObj->sendMail($sender,$receiver,$status,$remark); //Send email
-    */
-    
-    $sender='eversleyfrancis@gmail.com';
-    $receiver='everboy15@hotmail.com';
-
-    $mail= new PHPMailer();
-    $mail->isSMTP();
-    $mail->SMTPAuth=true;
-    $mail->SMTPSecure= 'ssl';
-    $mail->Host='smtp.gmail.com';
-    $mail->Port='465';
-    $mail->isHTML();
-    $mail->Username = 'bdzshippingja@gmail.com';
-    $mail->Password = 'comp2171';
-    $mail->SetFrom('no-reply@bdzshipping.com');
-    $mail->Subject ='Shipment Update';
-    $mail->Body = 'Your shipment is now '.$status.'. Remarks: '.$remark;
-    $mail->AddAddress($sender);
-    $mail->AddAddress($receiver);
-
-    $mail->Send();
-
-    $msg="E-mail Sent.";
+   if ($query && $query2 && $query3) {
+      
+      $mailObj=new MailServer(); //Create mail server object
+      
+      $sql=mysqli_query($con,"SELECT refNumber, SenderEMail, RecipientEMail FROM tblcourier WHERE id=$cid");
+      
+      while($record=mysqli_fetch_array($sql)){
+        $sendrefNumber=$record['refNumber'];
+        $sender=$record['SenderEMail'];
+        $receiver=$record['RecipientEMail'];
+        $mailObj->sendMail($sendrefNumber,$sender,$receiver,$status,$remark); //Send email
+      }
+      
+      $msg="E-mail Sent.";
 
   }
   else
@@ -56,12 +40,10 @@ if(isset($_POST['submit'])){
       $msg="Something Went Wrong. Please try again";
     }
 
-  
 }
   
 
 ?>
-
 
 
 <!doctype html>
@@ -156,8 +138,8 @@ while ($row=mysqli_fetch_array($ret)) {
     <td><?php  echo $row['SenderState'];?></td>
   </tr>
   <tr>
-    <th>Sender Pincode</th>
-    <td><?php  echo $row['SenderPincode'];?></td>
+    <th>Sender E-Mail</th>
+    <td><?php  echo $row['SenderEMail'];?></td>
   </tr>
   <tr>
     <th>Sender Country</th>
@@ -193,8 +175,8 @@ while ($row=mysqli_fetch_array($ret)) {
     <td><?php  echo $row['RecipientState'];?></td>
   </tr>
   <tr>
-    <th>Recipient Pincode</th>
-    <td><?php  echo $row['RecipientPincode'];?></td>
+    <th>Recipient E-Mail</th>
+    <td><?php  echo $row['RecipientEMail'];?></td>
   </tr>
   <tr>
     <th>Recipient Country</th>

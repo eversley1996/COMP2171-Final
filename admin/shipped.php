@@ -6,8 +6,6 @@ if (strlen($_SESSION['cmsaid']==0)) {
   header('location:logout.php');
   } else{
 
-
-
   ?>
 <!doctype html>
 <html lang="en">

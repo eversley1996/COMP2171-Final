@@ -125,8 +125,8 @@ while ($row=mysqli_fetch_array($ret)) {
     <td><?php  echo $row['SenderState'];?></td>
   </tr>
   <tr>
-    <th>Sender Pincode</th>
-    <td><?php  echo $row['SenderPincode'];?></td>
+    <th>Sender E-Mail</th>
+    <td><?php  echo $row['SenderEMail'];?></td>
   </tr>
   <tr>
     <th>Sender Country</th>
@@ -161,8 +161,8 @@ while ($row=mysqli_fetch_array($ret)) {
     <td><?php  echo $row['RecipientState'];?></td>
   </tr>
   <tr>
-    <th>Recipient Pincode</th>
-    <td><?php  echo $row['RecipientPincode'];?></td>
+    <th>Recipient E-Mail</th>
+    <td><?php  echo $row['RecipientEMail'];?></td>
   </tr>
   <tr>
     <th>Recipient Country</th>

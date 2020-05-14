@@ -11,15 +11,13 @@ if(isset($_POST['login']))
     $ret=mysqli_fetch_array($query);
     if($ret>0){
       $_SESSION['cmsaid']=$ret['ID'];
-     header('location:dashboard.php');
+      header('location:dashboard.php');
     }
     else{
     $msg="Invalid Details.";
     }
   }
   ?>
-
-
 
 <!doctype html>
 <html lang="en">
