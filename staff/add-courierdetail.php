@@ -2,14 +2,16 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
+include('includes/BDZ_Database.php'); //Databse class
+
 if (strlen($_SESSION['cmssid']==0)) {
   header('location:logout.php');
   } else{
     if(isset($_POST['submit']))
-  {
+{
 
 $cmsaid=$_SESSION['cmssid'];
- $senbranchname=$_POST['senderbranchname'];
+$senbranchname=$_POST['senderbranchname'];
 $sendername=$_POST['sendername'];
 $sendercontnum=$_POST['sendercontactnumber'];
 $senderadd=$_POST['senderaddress'];
@@ -35,18 +37,26 @@ $parheight=$_POST['height'];
 $parprice=$_POST['parcelprice'];
 $refnumber=mt_rand(100000000, 999999999);
 $status='0';
- $query=mysqli_query($con,"insert into tblcourier(RefNumber,SenderBranch,SenderName,SenderContactnumber,SenderAddress,SenderCity,SenderState,SenderEMail,SenderCountry,RecipientName,RecipientContactnumber,RecipientAddress,RecipientCity,RecipientState,RecipientEMail
-,RecipientCountry,CourierDes, Vessel, Container, ManifestNumber, ParcelWeight,ParcelDimensionlen,ParcelDimensionwidth,ParcelDimensionheight,ParcelPrice,Status) value('$refnumber','$senbranchname','$sendername','$sendercontnum','$senderadd','$sendercity','$senderstate','$SenderEMail','$sendercountry','$recname','$reccontactnumber','$recadd','$reccity','$recstate','$recpEMail','$reccountry','$courierdes','$shipvessel','$shipcontainer','$shipmanifest','$courierwt','$parlength','$parwidth','$parheight','$parprice','$status')");
 
-    if ($query) {
+//OOP
+/* 
+$databaseObj = new BDZ_Database(); //Database object
+
+$query_string='insert into tblcourier(RefNumber,SenderBranch,SenderName,SenderContactnumber,SenderAddress,SenderCity,SenderState,SenderEMail,SenderCountry,RecipientName,RecipientContactnumber,RecipientAddress,RecipientCity,RecipientState,RecipientEMail,RecipientCountry,CourierDes, Vessel, Container, ManifestNumber, ParcelWeight,ParcelDimensionlen,ParcelDimensionwidth,ParcelDimensionheight,ParcelPrice,Status) value ('.$refnumber.','.$senbranchname.','.$sendername.','.$sendercontnum.','.$senderadd.','.$sendercity.','.$senderstate.','.$SenderEMail.','.$sendercountry.','.$recname.','.$reccontactnumber.','.$recadd.','.$reccity.','.$recstate.','.$recpEMail.','.$reccountry.','.$courierdes.','.$shipvessel.','.$shipcontainer.','.$shipmanifest.','.$courierwt.','.$parlength.','.$parwidth.','.$parheight.','.$parprice.','.$status.')';
+
+$msg=$databaseObj->db_insert($query_string);
+
+*/
+
+$query=mysqli_query($con,"insert into tblcourier(RefNumber,SenderBranch,SenderName,SenderContactnumber,SenderAddress,SenderCity,SenderState,SenderEMail,SenderCountry,RecipientName,RecipientContactnumber,RecipientAddress,RecipientCity,RecipientState,RecipientEMail,RecipientCountry,CourierDes, Vessel, Container, ManifestNumber, ParcelWeight,ParcelDimensionlen,ParcelDimensionwidth,ParcelDimensionheight,ParcelPrice,Status) value('$refnumber','$senbranchname','$sendername','$sendercontnum','$senderadd','$sendercity','$senderstate','$SenderEMail','$sendercountry','$recname','$reccontactnumber','$recadd','$reccity','$recstate','$recpEMail','$reccountry','$courierdes','$shipvessel','$shipcontainer','$shipmanifest','$courierwt','$parlength','$parwidth','$parheight','$parprice','$status')");
+
+if ($query) {
     $msg="Courier Detail has been added.";
-  }
-  else
-    {
-      $msg="Something Went Wrong. Please try again";
-    }
+}
+else{
+    $msg="Something Went Wrong. Please try again";
+}
 
-  
 }
 
 ?>
